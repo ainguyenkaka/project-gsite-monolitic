@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">IDiscovery</string>
+    <string name="activity_name">Activity Name</string>
+    <string name="report_name">Reporter Name</string>
+    <string name="activity_date">Activity Date</string>
+    <string name="location_name">Location Name</string>
+    <string name="attending_time">Attending Time</string>
+    <string name="btn_submit">New event</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_name">Name:&#160;</string>
+    <string name="dialog_reporter">Reporter:&#160;</string>
+    <string name="dialog_date">Date:&#160;</string>
+    <string name="dialog_location">Location:&#160;</string>
+    <string name="dialog_time">Time:&#160;</string>
+</resources>

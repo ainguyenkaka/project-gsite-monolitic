@@ -1,19 +1,15 @@
 package app.discovery.com.idiscovery;
 
 import android.content.DialogInterface;
-import android.provider.Settings;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,43 +48,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (checkRequired(mActivityName) && checkRequired(mReportName) && validateDate(mActivityDate)) {
+        if (checkRequired(mActivityName) &&
+                checkRequired(mReportName) &&
+                checkDate(mActivityDate)) {
             if (!mAttendingTime.getText().toString().isEmpty())
-                if (!validateTime(mAttendingTime))
+                if (!checkTime(mAttendingTime))
                     return;
 
             addNewEvent();
         }
     }
 
-
-    private boolean checkRequired(EditText editText) {
-        if (!editText.getText().toString().isEmpty())
+    private boolean checkRequired(EditText editText){
+        if (!MainValidation.checkEmpty(editText.getText().toString()))
             return true;
         else
-            editText.setError("This field is required!");
+            editText.setError(MainValidError.REQUIRED);
         return false;
     }
 
-    private boolean validateDate(EditText editText) {
-        Pattern p = Pattern.compile("^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$");
-        Matcher m = p.matcher(editText.getText().toString());
-        if (m.matches())
+
+    private boolean checkDate(EditText editText){
+        if (MainValidation.validateDate(editText.getText().toString()))
             return true;
         else
-            editText.setError("This field must be valid date (dd/MM/yyyy)!");
+            editText.setError(MainValidError.DATE);
         return false;
     }
 
-    private boolean validateTime(EditText editText) {
-        Pattern p = Pattern.compile("^\\d{1,2}:\\d{1,2}$");
-        Matcher m = p.matcher(editText.getText().toString());
-        if (m.matches())
+    private boolean checkTime(EditText editText){
+        if (MainValidation.validateTime(editText.getText().toString()))
             return true;
         else
-            editText.setError("This field must be valid date (HH:mm)!");
+            editText.setError(MainValidError.TIME);
         return false;
     }
+
 
 
     private void addNewEvent() {
